@@ -1,4 +1,5 @@
 language: python
+
 services:
     - docker
 before_install:
@@ -6,14 +7,16 @@ before_install:
     # - cd qgis-testing-environment && docker build -t qgis-testing-environment .
     # or just pull it:
     - docker pull elpaso/qgis-testing-environment:latest
+    - docker tag elpaso/qgis-testing-environment:latest qgis-testing-environment
 install:
     - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 elpaso/qgis-testing-environment
     - sleep 10
     # Setup qgis and enable the plugin
-    - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh qgis_testing"
+    - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh SMProcessing"
     # If needd additional steps (for example make or paver setup, place it here)
     # Link the plugin to the tests_directory
-    - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/SMProcessing"
+    # - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/SMProcessing"
 
 script:
-    - docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh Tests.test1"
+    - docker exec -it qgis-testing-environment sh -c "cd /tests_directory"
+    - docker exec -it qgis-testing-environment sh -c "python3 -m unittest SMProcessing.Tests.test1"
