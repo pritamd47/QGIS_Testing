@@ -17,6 +17,7 @@ from .utilities import get_qgis_app
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 print("HERHEHREHREHRE")
+
 class TestInit(unittest.TestCase):
     def test_init(self):
         self.assertIsNotNone(IFACE, None)
