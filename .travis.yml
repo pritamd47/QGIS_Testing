@@ -15,8 +15,8 @@ install:
     - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh SMProcessing"
     # If needd additional steps (for example make or paver setup, place it here)
     # Link the plugin to the tests_directory
-    # - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/SMProcessing"
+    - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/SMProcessing"
 
 script:
     - docker exec -it qgis-testing-environment sh -c "cd /tests_directory"
-    - docker exec -it qgis-testing-environment sh -c "python3 -m unittest SMProcessing.Tests.test1"
+    - docker exec -it qgis-testing-environment sh -c "python3 -m unittest Tests.test1"

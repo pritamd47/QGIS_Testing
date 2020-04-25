@@ -11,15 +11,12 @@ from qgis.core import (
     QgsVectorLayer
 )
 
-from SMProcessing.SMProcessing import SMProcessing
-from .utilities import get_qgis_app
+from SMProcessing.core import DEMProcessing
 
 class TestInit(unittest.TestCase):
-    def test_init(self):
-        self.assertIsNotNone(IFACE, None)
-        plugin = SMProcessing(IFACE)
-        print(type(plugin.dlg))
-
+    def test_io(self):
+        self.DEMProcessor = DEMProcessing.DEMProcessing(QgsRasterLayer("reclassify_aster.tif"))
+        self.assertEqual(type(self.DEMProcessor.raster), "QgsRasterLayer")
 
 if __name__ == "__main__":
     unittest.main()
