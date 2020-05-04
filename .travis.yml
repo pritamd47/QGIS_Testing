@@ -20,6 +20,6 @@ install:
     - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
 
 script:
-    - docker exec -it qgis-testing-environment sh -c "ls /tests_directory"
-    - docker exec -it qgis-testing-environment sh -c "ls /tests_directory/SMProcessing"
+    # - docker exec -it qgis-testing-environment sh -c "ls /tests_directory"
+    # - docker exec -it qgis-testing-environment sh -c "ls /tests_directory/SMProcessing"
     - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && qgis_testrunner.sh SMProcessing.test.test_geometries"

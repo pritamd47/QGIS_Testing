@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/SMProcessing" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
