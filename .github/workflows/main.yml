@@ -26,11 +26,11 @@ jobs:
       
     - name: Setup Qgis, and enable plugin
       run: |
-        docker exec -it qgis-testing-environment sh -c "qgis_setup.sh SMProcessing"
+        docker exec -it qgis-testing-environment bash -c "qgis_setup.sh SMProcessing"
         # Link the plugin to the tests_directory
-        docker exec  -it qgis-testing-environment sh -c "rm -f /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
-        docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
+        docker exec  -it qgis-testing-environment bash -c "rm -f /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
+        docker exec -it qgis-testing-environment bash -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
     
     - name: Run Tests
       shell: bash
-      run: docker exec -it qgis-testing-environment sh -c "cd /tests_directory && qgis_testrunner.sh SMProcessing.test.test_geometries"
+      run: docker exec -it qgis-testing-environment bash -c "cd /tests_directory && qgis_testrunner.sh SMProcessing.test.test_geometries"
