@@ -15,9 +15,9 @@ install:
     - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh plugin"
     # If needd additional steps (for example make or paver setup, place it here)
     # Link the plugin to the tests_directory
-    - docker exec  -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/plugin"
+    - docker exec  -it qgis-testing-environment sh -c "rm -f /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/plugin"
     - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/plugin"
 
 script:
-    - docker exec -it qgis-testing-environment sh -c "ls /tests_dreictory"
+    - docker exec -it qgis-testing-environment sh -c "ls /tests_directory"
     - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && qgis_testrunner.sh plugin.tests.test_geometries"
