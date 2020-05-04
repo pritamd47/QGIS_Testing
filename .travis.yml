@@ -6,17 +6,18 @@ before_install:
     # Build this docker:
     # - cd qgis-testing-environment && docker build -t qgis-testing-environment .
     # or just pull it:
-    - docker pull elpaso/qgis-testing-environment:latest
+    # - docker pull elpaso/qgis-testing-environment:latest
+    - docker pull qgis/qgis:latest
     # - docker tag elpaso/qgis-testing-environment:latest qgis-testing-environment
 install:
-    - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 elpaso/qgis-testing-environment
+    - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis/qgis:latest
     - sleep 10
     # Setup qgis and enable the plugin
     - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh plugin"
     # If needd additional steps (for example make or paver setup, place it here)
     # Link the plugin to the tests_directory
     - docker exec  -it qgis-testing-environment sh -c "rm -f /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/plugin"
-    - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory /root/.qgis2/python/plugins/plugin"
+    - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/plugin"
 
 script:
     - docker exec -it qgis-testing-environment sh -c "ls /tests_directory"
