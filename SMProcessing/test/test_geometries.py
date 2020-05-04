@@ -2,7 +2,8 @@ import sys
 
 from qgis.testing import unittest
 from qgis.core import (
-    QgsProject, QgsVectorLayer, QgsPointXY, QgsGeometry, QgsFeature)
+    QgsProject, QgsVectorLayer, QgsPointXY, QgsGeometry, QgsFeature,
+    QgsRasterLayer)
 
 from SMProcessing.core.DEMProcessing import DEMProcessing
 
@@ -36,8 +37,17 @@ class TestGeometries(unittest.TestCase):
             feature.setGeometry(geometry)
             layer.dataProvider().addFeatures([feature])
             pos_y += 20
-        print(f"Feature COund: {layer.featureCount()}")
         self.assertEqual(10, layer.featureCount())
+
+    def test_demprocessor_io(self):
+        raster_path = "/tests_directory/SMProcessing/test/data/utmsmall.tif"
+        # read as QgsRasterLayer
+        raster = QgsRasterLayer(raster_path, "utmsmall")
+        self.assertIs(raster, QgsRasterLayer)
+
+        dem = DEMProcessing(raster)
+        self.assertEqual(dem.path, raster_path)
+        self.assertEqual(crs, "EPSG:4326") # faill intentionally
 
 
 def run_all():
