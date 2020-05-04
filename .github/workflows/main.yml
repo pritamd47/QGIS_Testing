@@ -32,4 +32,5 @@ jobs:
         docker exec -i qgis-testing-environment sh -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/SMProcessing"
     
     - name: Run Tests
+      shell: bash
       run: docker exec -i qgis-testing-environment sh -c "cd /tests_directory && qgis_testrunner.sh SMProcessing.test.test_geometries"
