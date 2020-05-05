@@ -40,14 +40,14 @@ class TestGeometries(unittest.TestCase):
         self.assertEqual(10, layer.featureCount())
 
     def test_demprocessor_io(self):
-        raster_path = "/tests_directory/SMProcessing/test/data/utmsmall.tif"
+        raster_path = "/tests_directory/SMProcessing/test/data/world.tif"
         # read as QgsRasterLayer
-        raster = QgsRasterLayer(raster_path, "utmsmall")
-        self.assertIs(raster, QgsRasterLayer)
+        raster = QgsRasterLayer(raster_path, "world")
+        self.assertIsNotNone(raster)
 
         dem = DEMProcessing(raster)
         self.assertEqual(dem.path, raster_path)
-        self.assertEqual(crs, "EPSG:4326") # faill intentionally
+        self.assertEqual(dem.crs, "EPSG:26111") # faill intentionally
 
 
 def run_all():
